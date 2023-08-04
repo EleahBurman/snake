@@ -12,6 +12,7 @@ grey=(150,150,150)
 orange=(255,150,20)
 teal=(125,191,170)
 blue=(0,200,255)
+navy=(0,47,108)
 dis.fill(grey)
 game_over=False
 game_close=False
@@ -27,6 +28,10 @@ lost_img=font_style.render("Press P to Play Again! Or Q to Quit!",True,red)
 def our_snake(snake_block,snake_list):
   for x in snake_list:
     pygame.draw.rect(dis,teal,(x[0],x[1],snake_block,snake_block))
+
+def the_score(score):
+  value=font_style.render("Your Score: " + str(score),True,navy)
+  dis.blit(value, [10,10])
 def game_loop():
     game_over=False
     game_close=False
@@ -83,13 +88,16 @@ def game_loop():
         snake_list.append(snake_head)
         if len(snake_list)>length_of_snake:
           del snake_list[0]
+        for i in snake_list[:-1]:
+          if i == snake_head:
+            game_close=True
         our_snake(10,snake_list)
         if x==foodx and y==foody:
           length_of_snake+=1
           foodx=10*random.randint(0,59)
           foody=10*random.randint(0,39)
+        the_score((length_of_snake -1)*100)
         pygame.display.update()
-        clock.tick(40)
-
+        clock.tick(20)
     pygame.quit()
 game_loop()

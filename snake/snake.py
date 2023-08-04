@@ -1,4 +1,5 @@
 import pygame
+import random
 pygame.init()
 #make variable
 dis=pygame.display.set_mode((600,400))
@@ -10,6 +11,7 @@ white=(255,255,255)
 grey=(150,150,150)
 orange=(255,150,20)
 teal=(125,191,170)
+blue=(0,200,255)
 dis.fill(grey)
 game_over=False
 game_close=False
@@ -18,6 +20,10 @@ y=200
 x_change=0
 y_change=0
 clock=pygame.time.Clock()
+game_close=False
+font_style=pygame.font.SysFont("freesans",25)
+lost_img=font_style.render("Press P to Play Again! Or Q to Quit!",True,red)
+
 def game_loop():
     game_over=False
     game_close=False
@@ -25,9 +31,12 @@ def game_loop():
     y=200
     x_change=0
     y_change=0
+    foodx=10*random.randint(0,59)
+    foody=10*random.randint(0,39)
     while(game_over==False):
         while(game_close==True):
             dis.fill(white)
+            dis.blit(lost_img,[100,100])
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
@@ -62,6 +71,7 @@ def game_loop():
         y=y+y_change
         dis.fill(grey)
         pygame.draw.rect(dis,teal,(x,y,10,10))
+        pygame.draw.rect(dis,blue, (foodx,foody, 10, 10))
         pygame.display.update()
         clock.tick(30)
 

@@ -1,8 +1,10 @@
 import pygame
 import random
 pygame.init()
-#make variable
-dis=pygame.display.set_mode((600,400))
+width=600
+height=400
+snake_block=10
+dis=pygame.display.set_mode((width,height))
 pygame.display.set_caption("Snake by Eleah Burman")
 pygame.display.update()
 red=(128,0,0)
@@ -20,6 +22,7 @@ x=300
 y=200
 x_change=0
 y_change=0
+snake_speed=20
 clock=pygame.time.Clock()
 game_close=False
 font_style=pygame.font.SysFont("freesans",25)
@@ -35,12 +38,12 @@ def the_score(score):
 def game_loop():
     game_over=False
     game_close=False
-    x=300
-    y=200
+    x=int(width/2)
+    y=int(height/2)
     x_change=0
     y_change=0
-    foodx=10*random.randint(0,59)
-    foody=10*random.randint(0,39)
+    foodx=snake_block*random.randint(0,(width/snake_block-1))
+    foody=snake_block*random.randint(0,(height/snake_block-1))
     snake_list=[]
     length_of_snake=1
     while(game_over==False):
@@ -75,13 +78,13 @@ def game_loop():
                     x_change=-10
                     y_change=0
 
-        if x>=600 or x<0 or y>=400 or y<0:
+        if x>=width or x<0 or y>=height or y<0:
             game_close=True
         x=x+x_change
         y=y+y_change
         dis.fill(grey)
         #pygame.draw.rect(dis,teal,(x,y,10,10))
-        pygame.draw.rect(dis,blue, (foodx,foody, 10, 10))
+        pygame.draw.rect(dis,blue, (foodx,foody, snake_block, snake_block))
         snake_head=[]
         snake_head.append(x)
         snake_head.append(y)
@@ -91,13 +94,13 @@ def game_loop():
         for i in snake_list[:-1]:
           if i == snake_head:
             game_close=True
-        our_snake(10,snake_list)
+        our_snake(snake_block,snake_list)
         if x==foodx and y==foody:
           length_of_snake+=1
-          foodx=10*random.randint(0,59)
-          foody=10*random.randint(0,39)
+          foodx=snake_block*random.randint(0,(width/snake_block-1))
+          foody=snake_block*random.randint(0,(height/snake_block-1))
         the_score((length_of_snake -1)*100)
         pygame.display.update()
-        clock.tick(20)
+        clock.tick(snake_speed)
     pygame.quit()
 game_loop()

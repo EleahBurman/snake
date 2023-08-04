@@ -21,6 +21,7 @@ x=300
 y=200
 x_change=0
 y_change=0
+clock=pygame.time.Clock()
 while(game_over==False):
     
     for event in pygame.event.get():
@@ -45,4 +46,5 @@ while(game_over==False):
     y=y+y_change
     pygame.draw.rect(dis,teal,(x,y,10,10))
     pygame.display.update()
+    clock.tick(30)
 pygame.quit()

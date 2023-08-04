@@ -89,7 +89,7 @@ def game_loop():
           foodx=10*random.randint(0,59)
           foody=10*random.randint(0,39)
         pygame.display.update()
-        clock.tick(30)
+        clock.tick(40)
 
     pygame.quit()
 game_loop()

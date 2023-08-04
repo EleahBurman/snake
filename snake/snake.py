@@ -36,6 +36,7 @@ def the_score(score):
   value=font_style.render("Your Score: " + str(score),True,blue)
   dis.blit(value, [10,10])
 def game_loop():
+    global snake_speed
     game_over=False
     game_close=False
     x=int(width/2)
@@ -99,6 +100,7 @@ def game_loop():
           length_of_snake+=1
           foodx=snake_block*random.randint(0,(width/snake_block-1))
           foody=snake_block*random.randint(0,(height/snake_block-1))
+          snake_speed+=1
         the_score((length_of_snake -1)*100)
         pygame.display.update()
         clock.tick(snake_speed)

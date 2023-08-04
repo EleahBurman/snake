@@ -15,7 +15,7 @@ orange=(255,150,20)
 teal=(125,191,170)
 blue=(0,200,255)
 navy=(0,47,108)
-dis.fill(grey)
+dis.fill(black)
 game_over=False
 game_close=False
 x=300
@@ -26,14 +26,14 @@ snake_speed=20
 clock=pygame.time.Clock()
 game_close=False
 font_style=pygame.font.SysFont("freesans",25)
-lost_img=font_style.render("Press P to Play Again! Or Q to Quit!",True,red)
+lost_img=font_style.render("Press P to Play Again! Or Q to Quit!",True,black)
 
 def our_snake(snake_block,snake_list):
   for x in snake_list:
     pygame.draw.rect(dis,teal,(x[0],x[1],snake_block,snake_block))
 
 def the_score(score):
-  value=font_style.render("Your Score: " + str(score),True,navy)
+  value=font_style.render("Your Score: " + str(score),True,blue)
   dis.blit(value, [10,10])
 def game_loop():
     game_over=False
@@ -48,7 +48,7 @@ def game_loop():
     length_of_snake=1
     while(game_over==False):
         while(game_close==True):
-            dis.fill(white)
+            dis.fill(blue)
             dis.blit(lost_img,[100,100])
             pygame.display.update()
             for event in pygame.event.get():
@@ -82,7 +82,7 @@ def game_loop():
             game_close=True
         x=x+x_change
         y=y+y_change
-        dis.fill(grey)
+        dis.fill(black)
         #pygame.draw.rect(dis,teal,(x,y,10,10))
         pygame.draw.rect(dis,blue, (foodx,foody, snake_block, snake_block))
         snake_head=[]

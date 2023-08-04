@@ -24,6 +24,9 @@ game_close=False
 font_style=pygame.font.SysFont("freesans",25)
 lost_img=font_style.render("Press P to Play Again! Or Q to Quit!",True,red)
 
+def our_snake(snake_block,snake_list):
+  for x in snake_list:
+    pygame.draw.rect(dis,teal,(x[0],x[1],snake_block,snake_block))
 def game_loop():
     game_over=False
     game_close=False
@@ -33,6 +36,8 @@ def game_loop():
     y_change=0
     foodx=10*random.randint(0,59)
     foody=10*random.randint(0,39)
+    snake_list=[]
+    length_of_snake=1
     while(game_over==False):
         while(game_close==True):
             dis.fill(white)
@@ -70,8 +75,19 @@ def game_loop():
         x=x+x_change
         y=y+y_change
         dis.fill(grey)
-        pygame.draw.rect(dis,teal,(x,y,10,10))
+        #pygame.draw.rect(dis,teal,(x,y,10,10))
         pygame.draw.rect(dis,blue, (foodx,foody, 10, 10))
+        snake_head=[]
+        snake_head.append(x)
+        snake_head.append(y)
+        snake_list.append(snake_head)
+        if len(snake_list)>length_of_snake:
+          del snake_list[0]
+        our_snake(10,snake_list)
+        if x==foodx and y==foody:
+          length_of_snake+=1
+          foodx=10*random.randint(0,59)
+          foody=10*random.randint(0,39)
         pygame.display.update()
         clock.tick(30)
 
